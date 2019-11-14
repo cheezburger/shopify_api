@@ -80,11 +80,10 @@ class OrderTest < Test::Unit::TestCase
     fake 'orders/450789469/fulfillment_orders', method: :get, body: load_fixture('fulfillment_orders')
     fulfillment_orders = order.fulfillment_orders
 
-    assert_equal 2, fulfillment_orders.count
+    assert_equal [519788021, 519788022], fulfillment_orders.map(&:id).sort
     fulfillment_orders.each do |fulfillment_order|
       assert_equal 'ShopifyAPI::FulfillmentOrder', fulfillment_order.class.name
       assert_equal 450789469, fulfillment_order.order_id
     end
-    assert_equal [519788021, 519788022], fulfillment_orders.map(&:id).sort
   end
 end

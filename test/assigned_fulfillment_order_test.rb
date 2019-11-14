@@ -3,7 +3,7 @@ require 'test_helper'
 class AssignedFulFillmentOrderTest < Test::Unit::TestCase
   context "AssignedFulfillmentOrder" do
     context "#all" do
-      should "be able to list assigned fulfillment orders by assigned_status" do
+      should "list assigned fulfillment orders by assigned_status" do
         fo_fixture = load_fixture('assigned_fulfillment_orders')
         fake 'assigned_fulfillment_orders.json?assigned_status=cancellation_requested', method: :get,
              body: fo_fixture, extension: false
@@ -15,8 +15,8 @@ class AssignedFulFillmentOrderTest < Test::Unit::TestCase
         assert_equal 2, assigned_fulfillment_orders.count
         assigned_fulfillment_orders.each do |fulfillment_order|
           assert_equal 'ShopifyAPI::FulfillmentOrder', fulfillment_order.class.name
-          assert_equal 'open', fulfillment_order.status
-          assert_equal 'unsubmitted', fulfillment_order.request_status
+          assert_equal 'in_progress', fulfillment_order.status
+          assert_equal 'cancellation_accepted', fulfillment_order.request_status
         end
       end
 
